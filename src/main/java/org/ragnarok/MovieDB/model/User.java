@@ -49,5 +49,9 @@ public class User {
     )
     private String emailId;
 
+    private String role;
+
     private LocalDateTime createdDate;
+
+    private Boolean isEnabled;
 }
