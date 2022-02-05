@@ -1,0 +1,5 @@
+# ignore intellij metadata
+.idea
+
+# ignore all target files
+target
