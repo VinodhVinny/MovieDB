@@ -1,6 +1,8 @@
 package org.ragnarok.MovieDB.controller;
 
 import lombok.AllArgsConstructor;
+import org.ragnarok.MovieDB.dto.AuthRequest;
+import org.ragnarok.MovieDB.dto.AuthResponse;
 import org.ragnarok.MovieDB.dto.GenericDto;
 import org.ragnarok.MovieDB.dto.UserDto;
 import org.ragnarok.MovieDB.exception.ResourceAlreadyExistsException;
@@ -27,5 +29,13 @@ public class AuthController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new GenericDto("User signup successful", HttpStatus.CREATED, LocalDateTime.now()));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
+        AuthResponse authResponse = authService.login(authRequest);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(authResponse);
     }
 }

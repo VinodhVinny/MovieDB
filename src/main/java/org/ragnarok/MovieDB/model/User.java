@@ -37,8 +37,7 @@ public class User {
 
     @Column(
             name = "password",
-            nullable = false,
-            length = 24
+            nullable = false
     )
     private String password;
 
@@ -49,7 +48,8 @@ public class User {
     )
     private String emailId;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     private LocalDateTime createdDate;
 

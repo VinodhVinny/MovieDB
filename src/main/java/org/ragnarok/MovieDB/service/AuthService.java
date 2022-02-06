@@ -1,10 +1,17 @@
 package org.ragnarok.MovieDB.service;
 
 import lombok.AllArgsConstructor;
+import org.ragnarok.MovieDB.dto.AuthRequest;
+import org.ragnarok.MovieDB.dto.AuthResponse;
 import org.ragnarok.MovieDB.dto.UserDto;
 import org.ragnarok.MovieDB.exception.ResourceAlreadyExistsException;
 import org.ragnarok.MovieDB.model.User;
 import org.ragnarok.MovieDB.repository.UserRepository;
+import org.ragnarok.MovieDB.util.JwtTokenUtil;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,6 +22,9 @@ import java.util.Optional;
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenUtil jwtTokenUtil;
 
     public void signup(UserDto userDto) throws ResourceAlreadyExistsException {
 
@@ -26,7 +36,7 @@ public class AuthService {
 
         User user = User.builder()
                 .username(userDto.getUsername())
-                .password(userDto.getPassword())
+                .password(passwordEncoder.encode(userDto.getPassword()))
                 .emailId(userDto.getEmailId())
                 .role(userDto.getRole())
                 .createdDate(LocalDateTime.now())
@@ -34,5 +44,14 @@ public class AuthService {
                 .build();
 
         userRepository.save(user);
+    }
+
+    public AuthResponse login(AuthRequest authRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+
+        String token = jwtTokenUtil.generateJwtToken(authentication);
+
+        return new AuthResponse(authRequest.getUsername(), token, LocalDateTime.now());
     }
 }
