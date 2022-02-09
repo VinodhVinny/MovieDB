@@ -1,4 +1,4 @@
-package org.ragnarok.MovieDB.model;
+package org.ragnarok.movieDB.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

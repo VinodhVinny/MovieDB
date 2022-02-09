@@ -1,6 +1,5 @@
-package org.ragnarok.MovieDB;
+package org.ragnarok.movieDB;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest

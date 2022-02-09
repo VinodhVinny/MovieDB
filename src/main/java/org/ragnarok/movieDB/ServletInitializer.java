@@ -1,4 +1,4 @@
-package org.ragnarok.MovieDB;
+package org.ragnarok.movieDB;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

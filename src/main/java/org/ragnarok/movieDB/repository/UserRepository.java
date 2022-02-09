@@ -1,6 +1,6 @@
-package org.ragnarok.MovieDB.repository;
+package org.ragnarok.movieDB.repository;
 
-import org.ragnarok.MovieDB.model.User;
+import org.ragnarok.movieDB.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
