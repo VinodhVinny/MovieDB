@@ -1,10 +1,8 @@
 package org.ragnarok.movieDB.controller;
 
 import lombok.AllArgsConstructor;
-import org.ragnarok.movieDB.dto.AuthRequest;
-import org.ragnarok.movieDB.dto.AuthResponse;
-import org.ragnarok.movieDB.dto.GenericDto;
-import org.ragnarok.movieDB.dto.UserDto;
+import org.ragnarok.movieDB.dto.*;
+import org.ragnarok.movieDB.exception.InvalidTokenException;
 import org.ragnarok.movieDB.exception.ItemAlreadyExistsException;
 import org.ragnarok.movieDB.service.AuthService;
 import org.springframework.http.HttpStatus;
@@ -34,5 +32,29 @@ public class AuthController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(authResponse);
+    }
+
+    @PostMapping("/refreshToken")
+    public ResponseEntity<AuthResponse> refreshToken(@RequestBody RefreshTokenDto refreshTokenDto) throws InvalidTokenException {
+        AuthResponse authResponse = authService.refreshToken(refreshTokenDto);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(authResponse);
+    }
+
+    @PostMapping("/logoutHandler")
+    public ResponseEntity<GenericDto> logout() throws InvalidTokenException {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(GenericDto.builder()
+                        .message("User Logged out")
+                        .status(HttpStatus.OK)
+                        .timestamp(LocalDateTime.now())
+                        .build());
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "hello friend!";
     }
 }

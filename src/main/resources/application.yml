@@ -1,16 +1,22 @@
 server:
   port: 8080
 
-jwt:
-  secret-key: 2di67@3*&89cew
-  expiration-time: 900000
+movieDB:
+
+  jwt:
+    secret-key: 2di67@3*&89cew
+    expiration-time: 60000
+    refresh-token:
+      expiration-time: 3600000
 
 spring:
+
   datasource:
     url: jdbc:mysql://localhost:3306/moviedb
     username: vinny
     password: 2727
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     show-sql: true
     hibernate:
